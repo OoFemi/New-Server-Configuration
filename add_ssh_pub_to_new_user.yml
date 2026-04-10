@@ -1,0 +1,10 @@
+---
+- name: Add SSH Key to Femi 
+  hosts: all
+  become: true
+  tasks:
+    - name: Deploy SSH Public Key
+      authorized_key:
+        user: femi
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
