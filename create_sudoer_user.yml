@@ -1,0 +1,23 @@
+---
+- name: Create a new Sudoer User
+  hosts: all
+  become: true
+  vars:
+    user_password: "$6$rounds=656000$3QQGfb8nSXOdTsJX$3ongCsq03/YqQ43zF89BuuJVQRbne9P.E8yUm1pWVEkX29ImrI5YF7MG0CcNtx0jNMgfjS52uPQBCS4Gxjh8h/"
+
+  tasks:
+    - name: Create the user account
+      user:
+        name: femi
+        password: "{{ user_password }}"
+        groups: sudo
+        append: yes  # Adds to group without removing from others
+        shell: /bin/bash
+        state: present
+
+    - name: Allow 'sudo' group to have passwordless sudo (Optional)
+      lineinfile:
+        path: /etc/sudoers.d/90-cloud-init-users
+        line: "femi ALL=(ALL) NOPASSWD:ALL"
+        validate: '/usr/sbin/visudo -cf %s'
+        create: yes
