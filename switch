@@ -1,0 +1,9 @@
+- name: Hand over SSH keys to the new user
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure SSH key is present for femi
+      authorized_key:
+        user: femi
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
