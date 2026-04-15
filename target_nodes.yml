@@ -20,8 +20,33 @@
     when: ansible_distribution == "Ubuntu"
 
 
+- hosts: all
+  become: true
+  tasks:
 
--  hosts: Workstattion
+  - name: create femi user
+    tags: always
+    user:
+      name: femi
+      groups: root
+
+  - name: add ssh key for femi
+    tags: always
+    authorized_key:
+      user: femi
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILldvURLWbG3pRZgbXKyUXG8n3bXQCnleM0s2Vyp84oY ansible
+"
+
+  - name: add sudoer file  for femi
+    tags: always
+    copy:
+      src: sudoer_femi
+      dest: /etc/sudoers.d/femi
+      owner: root
+      group: root
+      mode: 0440
+ 
+-  hosts: Workstation
    become: true
    tasks:
 
@@ -68,6 +93,15 @@
        - php
       state: latest
     when: ansible_distribution == "CentOS"
+ 
+
+  - name: start httpd (CentOS)
+    tags: apache,centos,httpd
+    service:
+       name: httpd
+       state: started
+       enabled: yes
+    when: ansible_distribution == "CentOS"   
 
 
   - name: copy new website html for site
