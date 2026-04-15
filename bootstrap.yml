@@ -87,7 +87,7 @@
        name: httpd
        state: started
        enabled: yes
-    when: ansible_distribution == "CentOS"   
+    when: ansible_distribution == "CentOS"
 
 
   - name: copy new website html for site
