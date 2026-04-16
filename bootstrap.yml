@@ -5,14 +5,14 @@
   tasks:
 
 
-  - name: install updates (Centos)
+  - name: install updates(Centos)
     tags: always
     dnf:
       update_only: yes
       update_cache: yes
     when: ansible_distribution == "CentOS"
  
-  - name: install updates (Ubuntu)
+  - name: install updates(Ubuntu)
     tags: always
     apt:
       upgrade: dist
