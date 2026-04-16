@@ -2,7 +2,7 @@
   hosts: all
   become: true
   tasks:
-    - name: Ensure SSH key is present for femi
+    - name: Ensure SSH key is present for femi Ade
       authorized_key:
         user: femi
         state: present
