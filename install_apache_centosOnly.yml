@@ -8,7 +8,7 @@
   - name: update repository index
     apt:
       update_cache: yes
-     when: ansible_distsribution == "ubuntu"
+     when: ansible_distriibution == "ubuntu"
  
   - name: install apache2 package
     apt:
