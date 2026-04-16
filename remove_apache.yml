@@ -5,7 +5,7 @@
   tasks:
 
 
-  - name: update repository index
+  - name: remove repository index
     apt:
       update_cache: yes
       state: absent
@@ -15,7 +15,7 @@
       name: apache2
       state: absent
 
-  - name: add php support for apache
+  - name: remove php support for apache
     apt:
       name: libapache2-mod-php
       state: absent
