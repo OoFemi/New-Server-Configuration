@@ -24,6 +24,11 @@
   become: true
   tasks:
 
+  - name: create femi user
+    tags: always
+    user:
+      name: femi
+      groups: root
 
   - name: add ssh key for femi
     tags: always
@@ -32,105 +37,11 @@
       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILldvURLWbG3pRZgbXKyUXG8n3bXQCnleM0s2Vyp84oY ansible
 "
  
--  hosts: Workstation
-   become: true
-   tasks:
-
-   - name: install unzip
-     package: 
-       name: unzip
-
-
-   - name: install Terraform
-     unarchive:
-         src: https://releases.hashicorp.com/terraform/1.14.8/terraform_1.14.8_linux_amd64.zip
-         dest: /usr/local/bin
-         remote_src: yes
-         mode: 0755
-         owner: root
-         group: root
-
-
-
-
-
-
-- hosts: web_servers
-  become: true
-  tasks:
-
-
-  - name: install apache2 and php packages for Ubuntu
-    tags: apache, apache2,Ubuntu
-    apt:
-      name:
-        - apache2
-        - libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-
-
-  - name: install apache and php  package for CentOS
-    tags: apache, centos,httpd
-    dnf:
-      name:
-       - httpd
-       - php
-      state: latest
-    when: ansible_distribution == "CentOS"
- 
-
-  - name: start httpd (CentOS)
-    tags: apache,centos,httpd
-    service:
-       name: httpd
-       state: started
-       enabled: yes
-    when: ansible_distribution == "CentOS"
-
-
-  - name: copy new website html for site
-    tags: apache, apache2,httpd
+  - name: add sudoer file  for femi
+    tags: always
     copy:
-      src: new_site.html
-      dest:  /var/www/html/index.html
+      src: sudoer_femi
+      dest: /etc/sudoers.d/femi
       owner: root
       group: root
-      mode: 0644
-
-
-- hosts: db_servers
-  become: true
-  tasks:
- 
-  - name: install mariadb package (CentOS)
-    tags: centos,db,mariadb
-    dnf:
-      name: mariadb
-      state: latest
-    when: ansible_distribution == "CentOS" 
-
-
-  - name: install mariadb package (Ubuntu)
-    tags: db,mariadb,ubuntu
-    apt:
-      name: mariadb-server
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-
-- hosts: file_servers
-  become: true
-  tasks:
-
-  - name: install samba package 
-    tags: Samba
-    package:
-      name: samba
-      state: latest
-   
-
-
- 
-
+      mode: 0440
