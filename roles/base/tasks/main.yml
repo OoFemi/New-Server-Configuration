@@ -1,0 +1,6 @@
+- name: add ssh key for femi
+  authorized_key:
+    user: femi
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILldvURLWbG3pRZgbXKyUXG8n3bXQCn>
+"
+

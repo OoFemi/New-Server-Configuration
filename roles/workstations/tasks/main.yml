@@ -1,0 +1,13 @@
+- name: install unzip
+  package:
+    name: unzip
+
+
+- name: install Terraform
+  unarchive:
+      src: https://releases.hashicorp.com/terraform/1.14.8/terraform_1.14.8_>
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
