@@ -2,7 +2,7 @@
 
 - hosts: all
   become: true
-  pre_ tasks:
+  pre_tasks:
 
 
   - name: update repo cache (Centos)
