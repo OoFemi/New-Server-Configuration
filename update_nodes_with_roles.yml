@@ -5,7 +5,7 @@
   pre_tasks:
 
 
-  - name: update repository index (Centos)
+  - name: update repository index (CentOS)
     tags: always
     dnf:
       update_cache: yes
