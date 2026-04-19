@@ -5,7 +5,7 @@
   pre_ tasks:
 
 
-  - name: update repo cache (Centos)
+  - name: update repository cache (Centos)
     tags: always
     dnf:
       update_cache: yes
