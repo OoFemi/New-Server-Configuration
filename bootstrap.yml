@@ -30,7 +30,7 @@
       name: femi
       groups: root
 
-  - name: add ssh key for femi
+  - name: add ssh key for user femi
     tags: always
     authorized_key:
       user: femi
