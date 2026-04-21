@@ -31,7 +31,7 @@
      - workstations
 
 
--  hosts: Web_server
+-  hosts: web_servers
    become: true
    roles:
      - web_servers
