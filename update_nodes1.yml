@@ -9,7 +9,7 @@
     tags: always
     dnf:
       update_cache: yes
-    Changed_when: false
+    changed_when: false
     when: ansible_distribution == "CentOS"
  
   - name: update repository index (Ubuntu)
