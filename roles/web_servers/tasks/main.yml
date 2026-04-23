@@ -1,10 +1,10 @@
-- name: install apache2 and php packages
-  tags: apache,httpd,php
-  package:
-    name:
-      - "{{ apache_package_name))"
-      - "{{ php_package_name }}"
-    state: latest
+-  name: install apache2 and php packages
+   tags: apache,httpd,php
+   package:
+     name:
+       - "{{ apache_package_name }}"
+       - "{{ php_package_name }}"
+     state: latest
 
 
 - name: start and enable apache service
@@ -15,13 +15,13 @@
      enabled: yes
 
 - name: change email address for admin
-  tags: apache, centos,httpd
+  tags: apache,centos,httpd
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin femifeel12@gmail.net
-  when: ansible_distribution == "Centos"
-  notify: restart_ apache
+    line: ServerAdmin femi100@gmail.net
+  when: ansible_distribution == "CentOS"
+  notify: restart_apache
 
 - name: copy html for new site
   tags: apache,apache2,httpd,apache
