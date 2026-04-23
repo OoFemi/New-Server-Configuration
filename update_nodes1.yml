@@ -48,3 +48,8 @@
    roles:
      - file_servers
 
+
+-  hosts: eservice
+   become: true
+   roles:
+     - eservice
