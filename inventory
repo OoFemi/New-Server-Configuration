@@ -11,5 +11,5 @@
 [workstations]
 192.168.0.71
  
-[eservice_server]
-192.168.0.71
+[eservice]
+192.168.0.87
