@@ -8,7 +8,7 @@
   tasks:
     - name: Create the user account
       user:
-        name: femi Ade
+        name: femi 
         password: "{{ user_password }}"
         groups: sudo
         append: yes  # Adds to group without removing from others
