@@ -5,7 +5,7 @@
   tasks:
 
 
-  - name: update repository index
+  - name: update repository index for
     apt:
       update_cache: yes
 
