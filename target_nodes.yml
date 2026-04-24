@@ -46,7 +46,7 @@
       group: root
       mode: 0440
  
--  hosts: Workstation
+-  hosts: workstation
    become: true
    tasks:
 
