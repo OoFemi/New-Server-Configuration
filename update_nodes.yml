@@ -54,3 +54,7 @@
    roles:
      -  eservice
 
+-  hosts: odoo
+   become: true
+   roles:
+     -  odoo
