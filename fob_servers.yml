@@ -1,0 +1,55 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+
+  - name: update repository index (Centos)
+    tags: always
+    dnf:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "CentOS"
+ 
+  - name: update repository index (Ubuntu)
+    tags: always
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+
+- hosts: all
+  become: true
+  roles:
+    - base
+
+-  hosts: workstations
+   become: true
+   roles:
+     - workstations
+
+
+-  hosts: erp_servers
+   become: true
+   roles:
+     - erp_servers
+
+
+-  hosts: b24_servers
+   become: true
+   roles:
+     - b24_servers
+
+
+-  hosts: radius_servers
+   become: true
+   roles:
+     - radius_servers
+
+
+-  hosts: eservice
+   become: true
+   roles:
+     - eservice

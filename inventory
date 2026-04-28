@@ -1,20 +1,16 @@
-[web_servers]
-192.168.0.72
-192.168.0.76
-
-
-[db_servers]
-192.168.0.74
-
-[file_servers]
+[b24_servers]
 192.168.0.73
+
+[radius_servers]
+192.168.0.74
 
 [workstations]
 192.168.0.71
  
 [eservice]
 192.168.0.87
+192.168.0.76
 
-[odoo]
+[erp_servers]
 192.168.0.91
 
