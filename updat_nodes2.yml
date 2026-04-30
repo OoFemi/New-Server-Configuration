@@ -58,5 +58,5 @@
 -  hosts: db
    become: true
    roles:
-     - eservice
+     - db
 
