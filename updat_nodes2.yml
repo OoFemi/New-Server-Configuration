@@ -53,3 +53,10 @@
    become: true
    roles:
      - eservice
+
+
+-  hosts: db
+   become: true
+   roles:
+     - eservice
+
