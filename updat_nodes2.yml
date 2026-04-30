@@ -31,22 +31,22 @@
      - workstations
 
 
--  hosts: web_servers
+-  hosts: bitrix24_servers
    become: true
    roles:
-     - web_servers
+     - bitrix24_servers
 
 
--  hosts: db_servers
+-  hosts: erp_servers
    become: true
    roles:
-     - db_servers
+     - erp_servers
 
 
--  hosts: file_servers
+-  hosts: radius_servers
    become: true
    roles:
-     - file_servers
+     - radius_servers
 
 
 -  hosts: eservice

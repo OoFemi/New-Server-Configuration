@@ -24,24 +24,24 @@
   become: true
   tasks:
 
-  - name: create femi user.
+  - name: create ansible_worker
     tags: always
     user:
-      name: femi
+      name: ansible_worker
       groups: root
 
-  - name: add ssh key for user femi
+  - name: add ssh key for user ansible_worker
     tags: always
     authorized_key:
-      user: femi
+      user: ansible_worker
       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILldvURLWbG3pRZgbXKyUXG8n3bXQCnleM0s2Vyp84oY ansible
 "
  
-  - name: add sudoer file  for femi
+  - name: add sudoer file  for ansible_worker
     tags: always
     copy:
-      src: sudoer_femi
-      dest: /etc/sudoers.d/femi
+      src: sudoer_ansible_worker
+      dest: /etc/sudoers.d/ansible_worker
       owner: root
       group: root
       mode: 0440
