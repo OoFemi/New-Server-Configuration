@@ -1,0 +1,130 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 28, 2018, 1:53:03 PM
+    Author     : OPMat
+*/
+
+.text-fob-red, #text-fob-red {
+    color: #D00308;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.text-fob-blue, #text-fob-blue {
+    color: #11269C;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+.center {
+    text-align: center;
+}
+
+.or-box
+{
+    position: relative;
+    border-top: 1px solid #dfdfdf;
+    padding-top: 5px; /* 20px;*/
+    margin-top:20px;
+}
+.or
+{
+    color: #666666;
+    background-color: #ffffff;
+    position: absolute;
+    text-align: center;
+    top: -8px;
+    width: 40px;
+    left: 140px;
+}
+.forgotLnk
+{
+    margin-top: 10px;
+    display: block;
+}
+.footer, #footer {
+  position: relative;
+  margin-top: -20px; /* negative value of footer height */
+  min-height: 40px;
+  clear:both;
+  padding-top:20px;    
+  background-color: #11269C; /* #6400aa;*/
+  color: white;
+  border-top: 2px solid #E00712;
+} 
+.footer a, #footer a {
+    color: #faf8f0;
+}
+
+div#service>ul {
+    list-style: none; /* Remove HTML bullets */
+    padding: 0;
+    margin: 0;
+}
+
+div#service>ul>li { 
+    padding-left: 16px; 
+    font-size: 1.0em;
+    margin-top: -10px;
+    color:red;
+}
+
+div#service>ul>li::before {
+    content: "•"; /* Insert content that looks like bullets */
+    padding-right: 14px;
+    font-size: 1.4em;
+    color: blue; /* Or a color you prefer */
+}
+
+
+.btn-show-pass {
+  /*font-size: 15px;*/
+  color: #999999;
+
+/*  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;*/
+  align-items: center;
+/*  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 5px;*/
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.btn-show-pass:hover {
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(left, #21d4fd, #b721ff);
+}
+
+.btn-show-pass.active {
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(left, #21d4fd, #b721ff);
+}
+
+.btn-me, .btn-me.active {
+    background-color: #11269C !important;
+    border-color: #11269C !important;
+}
+
+.btn-me-red, .btn-me-red.active {
+    background-color: #D00308 !important;
+    border-color: #D00308 !important;
+}

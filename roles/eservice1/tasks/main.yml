@@ -1,0 +1,39 @@
+-  name: install apache2 and php packages
+   tags: apache,httpd,php
+   package:
+     name:
+       - "{{ apache_package_name }}"
+       - "{{ php_package_name }}"
+     state: latest
+
+
+- name: start and enable apache service
+  tags: apache,httpd
+  service:
+     name: "{{ apache_service }}"
+     state: started
+     enabled: yes
+
+- name: change email address for admin
+  tags: apache,centos,httpd
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^ServerAdmin'
+    line: ServerAdmin infosystem@fob.ng
+  when: ansible_distribution == "CentOS"
+  notify: restart_apache
+
+- name: clear default Apache index
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name: copy cloned website to eservice
+  tags: apache,apache2,httpd,apache
+  copy:
+     src: eservice.fob.ng
+     dest:  /var/www/html/
+     owner: root
+     group: root
+     mode: 0644
+
