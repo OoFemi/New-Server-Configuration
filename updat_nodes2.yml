@@ -55,8 +55,8 @@
      - eservice
 
 
--  hosts: db_servers
-   become: true
+-  hosts: loadbalancer
+   become: yes
    roles:
-     - dbserver
+     - loadbalancer
 
