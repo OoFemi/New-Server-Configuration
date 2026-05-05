@@ -1,0 +1,4 @@
+haproxy_vip: 192.168.0.100
+keepalived_role: BACKUP
+keepalived_priority: 100
+keepalived_interface: enp0s3
