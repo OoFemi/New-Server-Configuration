@@ -1,6 +1,6 @@
-- name: add ssh key for user femi
+- name: add ssh key for user ansible_worker
   authorized_key:
-    user: femi
+    user: ansible_worker
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILldvURLWbG3pRZgbXKyUXG8n3bXQCn>
 "
 
