@@ -55,8 +55,12 @@
      - eservice
 
 
--  hosts: loadbalancer
+-  hosts: eservice_LB
    become: yes
    roles:
-     - loadbalancer
+     - eservice_LB
 
+-  hosts: radius_LB
+   become: yes
+   roles:
+     - radius_LB
