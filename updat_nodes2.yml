@@ -64,3 +64,8 @@
    become: yes
    roles:
      - radius_LB
+
+-  hosts: percona
+   become: yes
+   roles:
+     - percona
