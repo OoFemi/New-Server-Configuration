@@ -25,4 +25,4 @@
 
 [percona]
 192.168.0.83
-ansible_user=sare
+ansible_user=spare
