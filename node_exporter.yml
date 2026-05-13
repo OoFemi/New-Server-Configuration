@@ -1,0 +1,57 @@
+---
+- name: Deploy Node Exporter to Ubuntu Servers
+  hosts: all
+  become: true
+  vars:
+    version: "1.8.1"
+
+  tasks:
+    - name: Create node_exporter user
+      user:
+        name: node_exporter
+        shell: /bin/false
+        system: true
+
+    - name: Download and extract binary
+      unarchive:
+        src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-amd64.tar.gz"
+        dest: /tmp
+        remote_src: yes
+
+    - name: Move binary to system path
+      copy:
+        src: "/tmp/node_exporter-{{ version }}.linux-amd64/node_exporter"
+        dest: /usr/local/bin/node_exporter
+        remote_src: yes
+        mode: '0755'
+        owner: node_exporter
+        group: node_exporter
+
+    - name: Setup Systemd service
+      copy:
+        dest: /etc/systemd/system/node_exporter.service
+        content: |
+          [Unit]
+          Description=Node Exporter
+          After=network.target
+
+          [Service]
+          User=node_exporter
+          Group=node_exporter
+          ExecStart=/usr/local/bin/node_exporter
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start service
+      systemd:
+        name: node_exporter
+        state: started
+        enabled: yes
+        daemon_reload: yes
+
+    - name: Allow port 9100 through UFW
+      ufw:
+        rule: allow
+        port: '9100'
+        proto: tcp
