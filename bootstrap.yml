@@ -5,7 +5,7 @@
   tasks:
 
 
-  - name: install updates(CentOS)
+  - name: install update (CentOS)
     tags: always
     dnf:
       update_only: yes
