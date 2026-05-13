@@ -27,7 +27,7 @@
         owner: node_exporter
         group: node_exporter
 
-    - name: Setup Systemd service
+    - name: create Systemd service
       copy:
         dest: /etc/systemd/system/node_exporter.service
         content: |
