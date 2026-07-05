@@ -37,10 +37,6 @@
      - bitrix24_servers
 
 
--  hosts: erp_servers
-   become: true
-   roles:
-     - erp_servers
 
 
 -  hosts: radius_servers
