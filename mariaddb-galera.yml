@@ -1,0 +1,53 @@
+---
+- hosts: galera_cluster
+  become: yes
+  vars:
+    mariadb_version: "11.4"
+    galera_cluster_name: "mycluster"
+    galera_nodes:
+      - "192.168.0.89"
+      - "192.168.0.87"
+      - "192.168.0.94" 
+      - "192.168.0.82"
+      - "192.168.0.18"
+
+
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - curl
+          - gnupg2
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add MariaDB GPG key
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: 0xF1656F24C74CD1D8
+
+    - name: Add MariaDB repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://dlm.mariadb.com/repo/mariadb-server/{{ mariadb_version }}/repo/ubuntu {{ ansible_distribution_release }} main"
+        state: present
+
+    - name: Install MariaDB + Galera
+      apt:
+        name:
+          - mariadb-server
+          - galera-4
+          - rsync
+        state: present
+        update_cache: yes
+
+    - name: Deploy Galera config
+      template:
+        src: galera.cnf.j2
+        dest: /etc/mysql/mariadb.conf.d/galera.cnf
+
+    - name: Stop MariaDB before cluster start
+      systemd:
+        name: mariadb
+        state: stopped
