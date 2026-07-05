@@ -1,0 +1,92 @@
+---
+- hosts: galera_cluster
+  become: yes
+
+  vars:
+    mariadb_version: "11.4"
+    galera_cluster_name: "mycluster"
+    galera_nodes:
+      - "192.168.0.87"
+      - "192.168.0.89"
+      - "192.168.0.94"
+      - "192.168.0.82"
+      - "192.168.0.18"
+
+  tasks:
+
+    ###########################################################################
+    # 1. CLEANUP OLD MARIADB REPOSITORY FILES
+    ###########################################################################
+    - name: Remove old MariaDB repository file (auto-generated name)
+      file:
+        path: /etc/apt/sources.list.d/dlm_mariadb_com_repo_mariadb_server_11_4_repo_ubuntu.list
+        state: absent
+      ignore_errors: yes
+
+    - name: Remove old MariaDB repository file (manual name)
+      file:
+        path: /etc/apt/sources.list.d/mariadb.list
+        state: absent
+      ignore_errors: yes
+
+    ###########################################################################
+    # 2. INSTALL PREREQUISITES
+    ###########################################################################
+    - name: Install prerequisite packages
+      apt:
+        name:
+          - apt-transport-https
+          - curl
+          - gnupg2
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    ###########################################################################
+    # 3. ADD MARIADB GPG KEY (MODERN METHOD)
+    ###########################################################################
+    - name: Add MariaDB GPG key
+      ansible.builtin.shell: |
+        curl -fsSL https://mariadb.org/mariadb_release_signing_key.asc \
+        | gpg --dearmor \
+        | sudo tee /usr/share/keyrings/mariadb.gpg > /dev/null
+      args:
+        executable: /bin/bash
+
+    ###########################################################################
+    # 4. ADD MARIADB REPOSITORY (MODERN SIGNED-BY METHOD)
+    ###########################################################################
+    - name: Add MariaDB repository
+      apt_repository:
+        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/mariadb.gpg] https://dlm.mariadb.com/repo/mariadb-server/{{ mariadb_version }}/repo/ubuntu {{ ansible_distribution_release }} main"
+        filename: mariadb
+        state: present
+
+    ###########################################################################
+    # 5. INSTALL MARIADB + GALERA
+    ###########################################################################
+    - name: Install MariaDB + Galera
+      apt:
+        name:
+          - mariadb-server
+          - galera-4
+          - rsync
+        state: present
+        update_cache: yes
+
+    ###########################################################################
+    # 6. DEPLOY GALERA CONFIGURATION
+    ###########################################################################
+    - name: Deploy Galera configuration
+      template:
+        src: galera.cnf.j2
+        dest: /etc/mysql/mariadb.conf.d/galera.cnf
+
+    ###########################################################################
+    # 7. STOP MARIADB BEFORE CLUSTER BOOTSTRAP
+    ###########################################################################
+    - name: Stop MariaDB before cluster start
+      systemd:
+        name: mariadb
+        state: stopped
+
