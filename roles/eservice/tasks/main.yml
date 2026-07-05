@@ -19,15 +19,20 @@
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin infosystem@fob.ng
+    line: ServerAdmin femi.adeyemi@fob.ng
   when: ansible_distribution == "CentOS"
   notify: restart_apache
 
-- name: copy html for new site
+- name: clear default Apache index
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name: copy cloned website to eservice
   tags: apache,apache2,httpd,apache
   copy:
-     src: new_site.html
-     dest:  /var/www/html/index.html
+     src: eservice.fob.ng
+     dest:  /var/www/html/
      owner: root
      group: root
      mode: 0644
